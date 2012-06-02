@@ -168,16 +168,6 @@ map [[ ?\\section
 map ]] /\\section
 
 let i=1
-let g:amstex=0
-while i<20
-	if getline(i)=~"amsppt"
-		let g:amstex=1
-		break
-	endif
-	let i=i+1
-endwhile	
-
-let i=1
 let g:beamer=0
 while i<20
 	if getline(i)=~"documentclass.*beamer"
@@ -187,15 +177,11 @@ while i<20
 	let i=i+1
 endwhile	
 
-if g:amstex==0
 if g:beamer==0
 		setlocal makeprg=echo\ latex\ %\;latex\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
 else
 		setlocal makeprg=echo\ pdflatex\ %\;pdflatex\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
 
-endif
-else
-		setlocal makeprg=echo\ tex\ %\;tex\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
 endif
 
 set errorformat=%f:%l:%m
