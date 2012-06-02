@@ -30,37 +30,12 @@ set incsearch
 highlight Pmenusel ctermbg=7 ctermfg=12 guibg=White guifg=LightBlue 
 highlight Pmenu ctermbg=12 guibg=LightBlue
 
-if executable("darcs")
-	let g:darcs_have_darcs=1
-	let g:darcs_patch_name=system("echo -n `date +%F`-`whoami`-`hostname -f`")
-	let g:darcs_dontrecord=system("darcs changes | grep "."'".g:darcs_patch_name."'")
-else
-	let g:darcs_have_darcs=0
-endif
-
-function Darcs_author()
-	return system("echo -n `whoami`@`hostname -f`")
-endfunction
-
-function Darcs_record()
-	if g:darcs_have_darcs == 1
-		if g:darcs_dontrecord =~ '.'
-			echo system("yes | darcs amend-record -a >/dev/null")
-		else
-			echo system("darcs record -a -A ".Darcs_author()." -m ".g:darcs_patch_name." >/dev/null")
-		endif
-	endif
-endfunction
-
-
 filetype plugin on
 autocmd FileType perl call FT_pl()
 autocmd FileType python call FT_py()
 autocmd FileType tex call FT_tex()
 autocmd FileType c call FT_C()
 autocmd FileType mail call FT_mail()
-" Darcs_record sa vola vzdy
-autocmd VimLeave * call Darcs_record()
 
 
 map <F6> :bn
