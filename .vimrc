@@ -25,11 +25,8 @@ set bs=2
 filetype on
 set dictionary+=mybib.bib
 set incsearch
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1 
-let Tlist_Ctags_Cmd='/usr/bin/ctags'
+
+
 highlight Pmenusel ctermbg=7 ctermfg=12 guibg=White guifg=LightBlue 
 highlight Pmenu ctermbg=12 guibg=LightBlue
 
@@ -59,8 +56,6 @@ endfunction
 filetype plugin on
 autocmd FileType perl call FT_pl()
 autocmd FileType python call FT_py()
-autocmd FileType ruby call FT_ruby()
-autocmd FileType pyrex call FT_py()
 autocmd FileType tex call FT_tex()
 autocmd FileType c call FT_C()
 autocmd FileType mail call FT_mail()
@@ -108,6 +103,7 @@ function PutEnd()
 endfunction
 
 function FT_C()
+set ofu=syntaxcomplete#Complete
 map <F9> :wa:!cc -lm %
 map <F3> :wa:!cc -lm %:!./a.out
 endfunction
@@ -126,9 +122,9 @@ set sts=4
 set et 
 set sw=4
 set omnifunc=pythoncomplete#Complete
-nmap <F9> :wa:echo system("cd \"".expand("%:p:h")."\";"."python ".expand("%:p"))
-imap <F9> :wa:echo system("cd \"".expand("%:p:h")."\";"."python ".expand("%:p"))i
-
+nmap <F9> :wa:echo system("cd ".expand("%:p:h").";"."python ".expand("%:p"))
+imap <F9> :wa:echo system("cd ".expand("%:p:h").";"."python ".expand("%:p"))i
+set cinwords=if,e­lif,else,for,whi­le,try,except,fi­nally,def,class
 endfunction
 
 function Mail_foldtext()
@@ -173,15 +169,6 @@ function InsertTabWrapper()
       endif
 endfunction
 
-function FT_ruby()
-set ai 
-set ts=4 
-set sts=4 
-set et 
-set sw=4
-nmap <F9> :wa:echo system("cd \"".expand("%:p:h")."\";"."ruby ".expand("%:p"))
-imap <F9> :wa:echo system("cd \"".expand("%:p:h")."\";"."ruby ".expand("%:p"))i
-endfunction
 
 function FT_mail()
 
@@ -240,9 +227,9 @@ set errorformat=%f:%l:%m
 
 nnoremap <Tab><F3> :execute "!cd ".expand("%:p:h").";".g:psview." ".expand("%:p:r").".ps &"
 if g:beamer==1
-	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";"."xpdf ".expand("%:p:r").".pdf &"
+	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";"."xpdf -z width ".expand("%:p:r").".pdf &"
 else
-	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";".g:dviview." -watchfile 0.5 -s 5 -sourceposition ".line(".")."\\ ".expand("%:p:t")." ".expand("%:p:r")." &"
+	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";".g:dviview." -watchfile 0.5 -s 5 -sourceposition ".line(".")."\\ ".expand("%:p:t")." ".expand("%:p:r")." 2>/dev/null >/dev/null &"
 endif	
 map <F9> <F2>:make<CR>
 imap <F9> <F9>
