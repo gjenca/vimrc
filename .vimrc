@@ -177,20 +177,21 @@ while i<20
 	let i=i+1
 endwhile	
 
-if g:beamer==0
-		setlocal makeprg=echo\ latex\ %\;latex\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
-else
-		setlocal makeprg=echo\ pdflatex\ %\;pdflatex\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
-
-endif
+setlocal makeprg=echo\ pdflatex\ %\;pdflatex\ -synctex=1\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
 
 set errorformat=%f:%l:%m
 
+function! SyncTexForward()
+     let execstr = "!okular --unique %:p:r.pdf\\#src:".line(".")."%:p 2>/dev/null &"
+     exec execstr
+endfunction
+
+nmap <Leader>f :call SyncTexForward()<CR>
 nnoremap <Tab><F3> :execute "!cd ".expand("%:p:h").";".g:psview." ".expand("%:p:r").".ps &"
 if g:beamer==1
 	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";"."xpdf -z width ".expand("%:p:r").".pdf &"
 else
-	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";".g:dviview." -watchfile 0.5 -s 5 -sourceposition ".line(".")."\\ ".expand("%:p:t")." ".expand("%:p:r")." 2>/dev/null >/dev/null &"
+	nmap <F3> :call SyncTexForward()<CR>
 endif	
 map <F9> <F2>:make<CR>
 imap <F9> <F9>
