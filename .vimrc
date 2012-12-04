@@ -188,7 +188,7 @@ set errorformat=%f:%l:%m
 
 nnoremap <Tab><F3> :execute "!cd ".expand("%:p:h").";".g:psview." ".expand("%:p:r").".ps &"
 if g:beamer==1
-	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";"."xpdf -z width ".expand("%:p:r").".pdf &"
+	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";"."okular ".expand("%:p:r").".pdf &"
 else
 	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";".g:dviview." -watchfile 0.5 -s 5 -sourceposition ".line(".")."\\ ".expand("%:p:t")." ".expand("%:p:r")." 2>/dev/null >/dev/null &"
 endif	
