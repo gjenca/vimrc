@@ -191,7 +191,7 @@ nnoremap <Tab><F3> :execute "!cd ".expand("%:p:h").";".g:psview." ".expand("%:p:
 if g:beamer==1
 	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";"."okular ".expand("%:p:r").".pdf &"
 else
-	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";".g:dviview." -watchfile 0.5 -s 5 -sourceposition ".line(".")."\\ ".expand("%:p:t")." ".expand("%:p:r")." 2>/dev/null >/dev/null &"
+	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";".g:dviview." -editor \"vim --servername VIM --remote\" -watchfile 0.5 -s 5 -sourceposition ".line(".")."\\ ".expand("%:p:t")." ".expand("%:p:r")." 2>/dev/null >/dev/null &"
 endif	
 map <F9> <F2>:make<CR>
 imap <F9> <F9>
