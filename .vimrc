@@ -24,7 +24,9 @@ set wildmenu
 set bs=2
 filetype on
 set dictionary+=mybib.bib
+set dictionary+=keys.txt
 set dictionary+=mykeys.txt
+
 set incsearch
 
 
