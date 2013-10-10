@@ -70,6 +70,36 @@ function FindBegin()
 	return -1;
 endfunction
 
+function FindEnd() 
+
+	let i=line(".")+1
+	let cnt=0
+	while i<=line("$")
+		let str=getline(i)
+		if (str=~'begin{.*}')
+			 let cnt=cnt+1
+		endif
+		if (str=~'end{.*}')
+			 let cnt=cnt-1
+		endif
+		if (cnt < 0)
+			return i
+		endif
+		let i=i+1
+	endwhile
+	return -1;
+endfunction
+
+function PutBegin()
+
+	let end=FindEnd()
+	if (end>0)
+		let @u=getline(end)
+		exec "normal \"uP"
+		exec ".s/end/begin/"
+	endif
+endfunction
+
 function PutEnd()
 
 	let beg=FindBegin()
@@ -198,6 +228,7 @@ endif
 map <F9> <F2>:make<CR>
 imap <F9> <F9>
 inoremap <C-E> :call PutEnd()i
+inoremap <C-B> :call PutBegin()i
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 
 syn sync clear
