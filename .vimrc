@@ -67,7 +67,7 @@ function FindBegin()
 		endif
 		let i=i-1
 	endwhile
-	return -1;
+	return -1
 endfunction
 
 function FindEnd() 
@@ -87,7 +87,7 @@ function FindEnd()
 		endif
 		let i=i+1
 	endwhile
-	return -1;
+	return -1
 endfunction
 
 function PutBegin()
@@ -105,7 +105,7 @@ function PutEnd()
 	let beg=FindBegin()
 	if (beg>0)
 		let @u=getline(beg)
-		exec "normal \"uP"
+		exec "normal ik\"uP"
 		exec ".s/begin{\\([^}]*\\)}.*/end{\\1}/"
 	endif
 endfunction
