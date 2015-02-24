@@ -5,6 +5,7 @@ set nohlsearch
 let loaded_matchparen=1
 set showmatch
 set nobomb
+set guifont=Monospace\ 14
 if &term=~"xterm"
 if has("terminfo")
   set t_Co=16
@@ -26,6 +27,7 @@ filetype on
 set dictionary+=mybib.bib
 set dictionary+=keys.txt
 set dictionary+=mykeys.txt
+set fileencodings=utf-8
 
 set incsearch
 
@@ -39,6 +41,8 @@ autocmd FileType python call FT_py()
 autocmd FileType tex call FT_tex()
 autocmd FileType c call FT_C()
 autocmd FileType mail call FT_mail()
+autocmd FileType html call FT_html()
+autocmd FileType htmldjango call FT_html()
 
 
 map <F6> :bn
@@ -123,6 +127,15 @@ imap <F9> :wa:echo system("cd ".expand("%:p:h").";"."perl ".expand("%:p"))i
 
 endfunction
 
+function FT_html()
+set ai 
+set ts=2 
+set sts=2 
+set et 
+set sw=2
+set omnifunc=syntaxcomplete#Complete
+endfunction
+
 function FT_py()
 set ai 
 set ts=4 
@@ -202,25 +215,33 @@ map ]] /\\section
 
 let i=1
 let g:beamer=0
+let g:xetex=0
 while i<20
-	if getline(i)=~"documentclass.*beamer"
+	if getline(i)=~"documentclass.*beamer" || getline(i)=~"usepackage.*tikz"
 		let g:beamer=1
+		break
+	endif
+	if getline(i)=~"usepackage.*unicode-math"
+		let g:xetex=1
 		break
 	endif
 	let i=i+1
 endwhile	
 
-if g:beamer==0
-		setlocal makeprg=echo\ latex\ %\;latex\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
+if g:xetex==1
+		setlocal makeprg=echo\ xelatex\ %\;xelatex\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
 else
+if g:beamer==1
 		setlocal makeprg=echo\ pdflatex\ %\;pdflatex\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
-
+else
+		setlocal makeprg=echo\ latex\ %\;latex\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
+endif
 endif
 
 set errorformat=%f:%l:%m
 
 nnoremap <Tab><F3> :execute "!cd ".expand("%:p:h").";".g:psview." ".expand("%:p:r").".ps &"
-if g:beamer==1
+if (g:beamer==1) || (g:xetex==1)
 	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";"."okular ".expand("%:p:r").".pdf &"
 else
 	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";".g:dviview." -editor \"vim --servername VIM --remote\" -watchfile 0.5 -s 5 -sourceposition ".line(".")."\\ ".expand("%:p:t")." ".expand("%:p:r")." 2>/dev/null >/dev/null &"
@@ -236,4 +257,69 @@ syn sync fromstart
 
 endfunction
 
+function Bolds()
+	
+	dig AA 119808
+	dig BB 119809
+	dig CC 119810
+	dig DD 119811
+	dig EE 119812
+	dig FF 119813
+	dig GG 119814
+	dig HH 119815
+	dig II 119816
+	dig JJ 119817
+	dig KK 119818
+	dig LL 119819
+	dig MM 119820
+	dig NN 119821
+	dig OO 119822
+	dig PP 119823
+	dig QQ 119824
+	dig RR 119825
+	dig SS 119826
+	dig TT 119827
+	dig UU 119828
+	dig VV 119829
+	dig WW 119830
+	dig XX 119831
+	dig YY 119832
+	dig ZZ 119833
+	dig aa 119834
+	dig bb 119835
+	dig cc 119836
+	dig dd 119837
+	dig ee 119838
+	dig ff 119839
+	dig gg 119840
+	dig hh 119841
+	dig ii 119842
+	dig jj 119843
+	dig kk 119844
+	dig ll 119845
+	dig mm 119846
+	dig nn 119847
+	dig oo 119848
+	dig pp 119849
+	dig qq 119850
+	dig rr 119851
+	dig ss 119852
+	dig tt 119853
+	dig uu 119854
+	dig vv 119855
+	dig ww 119856
+	dig xx 119857
+	dig yy 119858
+	dig zz 119859
+	dig 00 120782
+	dig 11 120783
+	dig 22 120784
+	dig 33 120785
+	dig 44 120786
+	dig 55 120787
+	dig 66 120788
+	dig 77 120789
+	dig 88 120790
+
+endfunction
 				
