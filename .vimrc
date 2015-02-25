@@ -6,6 +6,7 @@ let loaded_matchparen=1
 set showmatch
 set nobomb
 set guifont=Monospace\ 14
+set fileencodings=utf-8
 if &term=~"xterm"
 if has("terminfo")
   set t_Co=16
@@ -109,21 +110,28 @@ function PutEnd()
 	let beg=FindBegin()
 	if (beg>0)
 		let @u=getline(beg)
-		exec "normal ik\"uP"
+		exec "normal i
+k\"uP"
 		exec ".s/begin{\\([^}]*\\)}.*/end{\\1}/"
 	endif
 endfunction
 
 function FT_C()
 set ofu=syntaxcomplete#Complete
-map <F9> :wa:!cc -lm %
-map <F3> :wa:!cc -lm %:!./a.out
+map <F9> :wa
+:!cc -lm %
+map <F3> :wa
+:!cc -lm %
+:!./a.out
 endfunction
 
 
 function FT_pl()
-nmap <F9> :wa:echo system("cd ".expand("%:p:h").";"."perl ".expand("%:p"))
-imap <F9> :wa:echo system("cd ".expand("%:p:h").";"."perl ".expand("%:p"))i
+nmap <F9> :wa
+:echo system("cd ".expand("%:p:h").";"."perl ".expand("%:p"))
+imap <F9> :wa
+:echo system("cd ".expand("%:p:h").";"."perl ".expand("%:p"))
+i
 
 endfunction
 
@@ -143,8 +151,11 @@ set sts=4
 set et 
 set sw=4
 set omnifunc=pythoncomplete#Complete
-nmap <F9> :wa:echo system("cd ".expand("%:p:h").";"."python ".expand("%:p"))
-imap <F9> :wa:echo system("cd ".expand("%:p:h").";"."python ".expand("%:p"))i
+nmap <F9> :wa
+:echo system("cd ".expand("%:p:h").";"."python ".expand("%:p"))
+imap <F9> :wa
+:echo system("cd ".expand("%:p:h").";"."python ".expand("%:p"))
+i
 set cinwords=if,e­lif,else,for,whi­le,try,except,fi­nally,def,class
 endfunction
 
@@ -248,8 +259,10 @@ else
 endif	
 map <F9> <F2>:make<CR>
 imap <F9> <F9>
-inoremap <C-E> :call PutEnd()i
-inoremap <C-B> :call PutBegin()i
+inoremap <C-E> :call PutEnd()
+i
+inoremap <C-B> :call PutBegin()
+i
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 
 syn sync clear
