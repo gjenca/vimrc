@@ -18,6 +18,7 @@ else
 endif
 endif
 syn on
+set bg=dark
 set backup
 set writebackup
 set hidden
@@ -200,6 +201,8 @@ set foldtext=Mail_foldtext()
 endfunction
 
 function FT_tex()
+
+call Bolds()
 
 set foldexpr=TeX_foldexpr(v:lnum)
 set foldmethod=expr
