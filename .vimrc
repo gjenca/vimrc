@@ -240,7 +240,7 @@ while i<20
 endwhile	
 
 if g:xetex==1
-		setlocal makeprg=echo\ xelatex\ %\;xelatex --synctex=1\ \ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
+		setlocal makeprg=echo\ xelatex\ %\;xelatex\ --synctex=1\ \ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
 else
 if g:beamer==1
 		setlocal makeprg=echo\ pdflatex\ %\;pdflatex\ --synctex=1\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
