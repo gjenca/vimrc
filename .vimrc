@@ -44,6 +44,7 @@ autocmd FileType c call FT_C()
 autocmd FileType mail call FT_mail()
 autocmd FileType html call FT_html()
 autocmd FileType htmldjango call FT_html()
+autocmd FileType haskell call FT_hs()
 
 
 map <F6> :bn
@@ -121,11 +122,15 @@ map <F9> :wa:!cc -lm %
 map <F3> :wa:!cc -lm %:!./a.out
 endfunction
 
+function FT_hs()
+nmap <F9> :wa:echo system("cd ".expand("%:p:h").";"."runhaskell ".expand("%:p"))
+imap <F9> :wa:echo system("cd ".expand("%:p:h").";"."runhaskell ".expand("%:p"))i
+endfunction
+
 
 function FT_pl()
 nmap <F9> :wa:echo system("cd ".expand("%:p:h").";"."perl ".expand("%:p"))
 imap <F9> :wa:echo system("cd ".expand("%:p:h").";"."perl ".expand("%:p"))i
-
 endfunction
 
 function FT_html()
