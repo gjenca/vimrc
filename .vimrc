@@ -5,7 +5,6 @@ set nohlsearch
 let loaded_matchparen=1
 set showmatch
 set nobomb
-set guifont=Monospace\ 14
 if &term=~"xterm"
 if has("terminfo")
   set t_Co=16
@@ -18,7 +17,12 @@ else
 endif
 endif
 syn on
-set bg=dark
+if has("gui_running")
+  set bg=light
+  set gfn=Liberation\ Mono\ 16
+else
+  set bg=dark
+endif
 set backup
 set writebackup
 set hidden
@@ -38,6 +42,8 @@ highlight Pmenu ctermbg=12 guibg=LightBlue
 
 filetype plugin on
 autocmd FileType perl call FT_pl()
+"let g:pymode_lint=0
+let g:pymode_syntax_indent_errors=0
 autocmd FileType python call FT_py()
 autocmd FileType tex call FT_tex()
 autocmd FileType c call FT_C()
@@ -152,6 +158,8 @@ set omnifunc=pythoncomplete#Complete
 nmap <F9> :wa:echo system("cd ".expand("%:p:h").";"."python ".expand("%:p"))
 imap <F9> :wa:echo system("cd ".expand("%:p:h").";"."python ".expand("%:p"))i
 set cinwords=if,e­lif,else,for,whi­le,try,except,fi­nally,def,class
+let g:pymode_lint=0
+highlight Error NONE
 endfunction
 
 function Mail_foldtext()
@@ -227,11 +235,11 @@ map [[ ?\\section
 map ]] /\\section
 
 let i=1
-let g:beamer=0
+let g:beamer=1
 let g:xetex=0
-let g:ispdf=0
+let g:ispdf=1
 while i<20
-	if getline(i)=~"documentclass.*beamer" || getline(i)=~"usepackage.*tikz"
+	if getline(i)=~"documentclass.*beamer" || getline(i)=~"usepackage.*tikz" || getline(i)=~"!!pdf"
 		let g:beamer=1
 		let g:ispdf=1
 		break
@@ -337,6 +345,8 @@ function Bolds()
 	dig 66 120788
 	dig 77 120789
 	dig 88 120790
-
+	dig 99 120791
+	dig << 12296
+	dig >> 12297
 endfunction
 				
