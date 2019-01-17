@@ -19,7 +19,8 @@ endif
 syn on
 if has("gui_running")
   set bg=light
-  set gfn=Liberation\ Mono\ 16
+  set gfn=Liberation\ Mono\ 14
+  set guicursor+=a:blinkon0
 else
   set bg=dark
 endif
@@ -348,5 +349,6 @@ function Bolds()
 	dig 99 120791
 	dig << 12296
 	dig >> 12297
+	dig \\ 8726
 endfunction
 				
