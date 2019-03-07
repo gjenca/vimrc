@@ -21,6 +21,10 @@ if has("gui_running")
   set bg=light
   set gfn=Liberation\ Mono\ 14
   set guicursor+=a:blinkon0
+  colorscheme darkblue
+  set guioptions-=m
+  set guioptions-=T
+  set guioptions-=r
 else
   set bg=dark
 endif
@@ -52,7 +56,6 @@ autocmd FileType mail call FT_mail()
 autocmd FileType html call FT_html()
 autocmd FileType htmldjango call FT_html()
 autocmd FileType haskell call FT_hs()
-
 
 map <F6> :bn
 map <F5> :bp
