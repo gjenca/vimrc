@@ -133,6 +133,11 @@ map <F3> :wa:!cc -lm %:!./a.out
 endfunction
 
 function FT_hs()
+set ai 
+set ts=4 
+set sts=4 
+set et 
+set sw=4
 nmap <F9> :wa:echo system("cd ".expand("%:p:h").";"."runhaskell ".expand("%:p"))
 imap <F9> :wa:echo system("cd ".expand("%:p:h").";"."runhaskell ".expand("%:p"))i
 endfunction
@@ -218,7 +223,7 @@ set foldtext=Mail_foldtext()
 endfunction
 
 function! SyncTexForward()
-     let execstr = "silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p 2>/dev/null&"
+     let execstr = "!okular --unique %:p:r.pdf\\#src:".line(".")."%:p 2>/dev/null&"
      exec execstr
 endfunction
 
@@ -240,7 +245,7 @@ map ]] /\\section
 
 let i=1
 let g:beamer=1
-let g:xetex=0
+let g:xetex=1
 let g:ispdf=1
 while i<20
 	if getline(i)=~"documentclass.*beamer" || getline(i)=~"usepackage.*tikz" || getline(i)=~"!!pdf"
