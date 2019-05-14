@@ -5,6 +5,7 @@ set nohlsearch
 let loaded_matchparen=1
 set showmatch
 set nobomb
+set textwidth=120
 if &term=~"xterm"
 if has("terminfo")
   set t_Co=16
