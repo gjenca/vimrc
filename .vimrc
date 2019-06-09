@@ -245,42 +245,25 @@ map [[ ?\\section
 map ]] /\\section
 
 let i=1
-let g:beamer=1
-let g:xetex=1
-let g:ispdf=1
+let g:beamer=0
 while i<20
-	if getline(i)=~"documentclass.*beamer" || getline(i)=~"usepackage.*tikz" || getline(i)=~"!!pdf"
+	if getline(i)=~"documentclass.*beamer"
 		let g:beamer=1
-		let g:ispdf=1
-		break
-	endif
-	if getline(i)=~"usepackage.*unicode-math"
-		let g:xetex=1
-		let g:ispdf=1
 		break
 	endif
 	let i=i+1
 endwhile	
 
-if g:xetex==1
-		setlocal makeprg=echo\ xelatex\ %\;xelatex\ --synctex=1\ \ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
-else
 if g:beamer==1
 		setlocal makeprg=echo\ pdflatex\ %\;pdflatex\ --synctex=1\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
 else
-		setlocal makeprg=echo\ latex\ %\;latex\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
-endif
+		setlocal makeprg=echo\ xelatex\ %\;xelatex\ --synctex=1\ \ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
 endif
 
 set errorformat=%f:%l:%m
 
 nnoremap <Tab><F3> :execute "!cd ".expand("%:p:h").";".g:psview." ".expand("%:p:r").".ps &"
-if (g:ispdf==1)
-	"nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";"."okular ".expand("%:p:r").".pdf &"
-	nnoremap <buffer> <F3> :call SyncTexForward()<CR>
-else
-	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";".g:dviview." -editor \"vim --servername VIM --remote\" -watchfile 0.5 -s 5 -sourceposition ".line(".")."\\ ".expand("%:p:t")." ".expand("%:p:r")." 2>/dev/null >/dev/null &"
-endif	
+nnoremap <buffer> <F3> :call SyncTexForward()<CR>
 map <F9> <F2>:make<CR>
 imap <F9> <F9>
 inoremap <C-E> :call PutEnd()i
