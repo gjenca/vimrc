@@ -165,9 +165,13 @@ set sts=4
 set et 
 set sw=4
 set omnifunc=pythoncomplete#Complete
-nmap <F9> :wa:echo system("cd ".expand("%:p:h").";"."python ".expand("%:p"))
-imap <F9> :wa:echo system("cd ".expand("%:p:h").";"."python ".expand("%:p"))i
-set cinwords=if,e­lif,else,for,whi­le,try,except,fi­nally,def,class
+let g:pyversion="python2"
+if getline(1)=~'python3'
+	let g:pyversion="python3"
+endif
+
+nmap <F9> :wa:echo system("cd ".expand("%:p:h").";".g:pyversion." ".expand("%:p"))
+imap <F9> :wa:echo system("cd ".expand("%:p:h").";".g:pyversion." ".expand("%:p"))i
 let g:pymode_lint=0
 highlight Error NONE
 endfunction
