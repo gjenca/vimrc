@@ -235,9 +235,9 @@ map [[ ?\\section
 map ]] /\\section
 
 let i=1
-let g:beamer=1
+let g:beamer=0
 let g:xetex=0
-let g:ispdf=1
+let g:ispdf=0
 while i<20
 	if getline(i)=~"documentclass.*beamer" || getline(i)=~"usepackage.*tikz" || getline(i)=~"!!pdf"
 		let g:beamer=1
