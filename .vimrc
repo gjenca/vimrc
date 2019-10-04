@@ -122,19 +122,15 @@ function PutEnd()
 	let beg=FindBegin()
 	if (beg>0)
 		let @u=getline(beg)
-		exec "normal i
-k\"uP"
+		exec "normal ik\"uP"
 		exec ".s/begin{\\([^}]*\\)}.*/end{\\1}/"
 	endif
 endfunction
 
 function FT_C()
 set ofu=syntaxcomplete#Complete
-map <F9> :wa
-:!cc -lm %
-map <F3> :wa
-:!cc -lm %
-:!./a.out
+map <F9> :wa:!cc -lm %
+map <F3> :wa:!cc -lm %:!./a.out
 endfunction
 
 function FT_hs()
@@ -143,20 +139,14 @@ set ts=4
 set sts=4 
 set et 
 set sw=4
-nmap <F9> :wa
-:echo system("cd ".expand("%:p:h").";"."runhaskell ".expand("%:p"))
-imap <F9> :wa
-:echo system("cd ".expand("%:p:h").";"."runhaskell ".expand("%:p"))
-i
+nmap <F9> :wa:echo system("cd ".expand("%:p:h").";"."runhaskell ".expand("%:p"))
+imap <F9> :wa:echo system("cd ".expand("%:p:h").";"."runhaskell ".expand("%:p"))i
 endfunction
 
 
 function FT_pl()
-nmap <F9> :wa
-:echo system("cd ".expand("%:p:h").";"."perl ".expand("%:p"))
-imap <F9> :wa
-:echo system("cd ".expand("%:p:h").";"."perl ".expand("%:p"))
-i
+nmap <F9> :wa:echo system("cd ".expand("%:p:h").";"."perl ".expand("%:p"))
+imap <F9> :wa:echo system("cd ".expand("%:p:h").";"."perl ".expand("%:p"))i
 endfunction
 
 function FT_html()
@@ -180,11 +170,8 @@ if getline(1)=~'python3'
 	let g:pyversion="python3"
 endif
 
-nmap <F9> :wa
-:echo system("cd ".expand("%:p:h").";".g:pyversion." ".expand("%:p"))
-imap <F9> :wa
-:echo system("cd ".expand("%:p:h").";".g:pyversion." ".expand("%:p"))
-i
+nmap <F9> :wa:echo system("cd ".expand("%:p:h").";".g:pyversion." ".expand("%:p"))
+imap <F9> :wa:echo system("cd ".expand("%:p:h").";".g:pyversion." ".expand("%:p"))i
 let g:pymode_lint=0
 highlight Error NONE
 endfunction
@@ -283,10 +270,8 @@ nnoremap <Tab><F3> :execute "!cd ".expand("%:p:h").";".g:psview." ".expand("%:p:
 nnoremap <buffer> <F3> :call SyncTexForward()<CR>
 map <F9> <F2>:make<CR>
 imap <F9> <F9>
-inoremap <C-E> :call PutEnd()
-i
-inoremap <C-B> :call PutBegin()
-i
+inoremap <C-E> :call PutEnd()i
+inoremap <C-B> :call PutBegin()i
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 
 syn sync clear
