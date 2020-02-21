@@ -5,7 +5,7 @@ set nohlsearch
 let loaded_matchparen=1
 set showmatch
 set nobomb
-set textwidth=120
+set textwidth=90
 if &term=~"xterm"
 if has("terminfo")
   set t_Co=16
@@ -19,15 +19,15 @@ endif
 endif
 syn on
 if has("gui_running")
-  set bg=light
-  set gfn=Liberation\ Mono\ 14
+  set gfn=Source\ Code\ Pro\ Medium\ 16
   set guicursor+=a:blinkon0
-  colorscheme darkblue
+  colorscheme modest
   set guioptions-=m
   set guioptions-=T
   set guioptions-=r
 else
-  set bg=dark
+  set bg=light
+  colorscheme modest
 endif
 set backup
 set writebackup
