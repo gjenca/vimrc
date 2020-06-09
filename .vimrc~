@@ -5,7 +5,6 @@ set nohlsearch
 let loaded_matchparen=1
 set showmatch
 set nobomb
-set textwidth=0
 if &term=~"xterm"
 if has("terminfo")
   set t_Co=16
@@ -19,15 +18,15 @@ endif
 endif
 syn on
 if has("gui_running")
-  set gfn=Source\ Code\ Pro\ Medium\ 16
+  set bg=light
+  set gfn=Liberation\ Mono\ 14
   set guicursor+=a:blinkon0
-  colorscheme solarized
+  colorscheme darkblue
   set guioptions-=m
   set guioptions-=T
   set guioptions-=r
 else
-  set bg=light
-  colorscheme solarized
+  set bg=dark
 endif
 set backup
 set writebackup
@@ -165,13 +164,9 @@ set sts=4
 set et 
 set sw=4
 set omnifunc=pythoncomplete#Complete
-let g:pyversion="python3"
-if getline(1)=~'python2'
-	let g:pyversion="python2"
-endif
-
-nmap <F9> :wa:echo system("cd ".expand("%:p:h").";".g:pyversion." ".expand("%:p"))
-imap <F9> :wa:echo system("cd ".expand("%:p:h").";".g:pyversion." ".expand("%:p"))i
+nmap <F9> :wa:echo system("cd ".expand("%:p:h").";"."python ".expand("%:p"))
+imap <F9> :wa:echo system("cd ".expand("%:p:h").";"."python ".expand("%:p"))i
+set cinwords=if,e­lif,else,for,whi­le,try,except,fi­nally,def,class
 let g:pymode_lint=0
 highlight Error NONE
 endfunction
@@ -236,7 +231,6 @@ function FT_tex()
 
 call Bolds()
 
-set textwidth=90
 set foldexpr=TeX_foldexpr(v:lnum)
 set foldmethod=expr
 set foldlevel=1
@@ -250,25 +244,42 @@ map [[ ?\\section
 map ]] /\\section
 
 let i=1
-let g:beamer=0
+let g:beamer=1
+let g:xetex=0
+let g:ispdf=1
 while i<20
-	if getline(i)=~"documentclass.*beamer"
+	if getline(i)=~"documentclass.*beamer" || getline(i)=~"usepackage.*tikz" || getline(i)=~"!!pdf"
 		let g:beamer=1
+		let g:ispdf=1
+		break
+	endif
+	if getline(i)=~"usepackage.*unicode-math"
+		let g:xetex=1
+		let g:ispdf=1
 		break
 	endif
 	let i=i+1
 endwhile	
 
+if g:xetex==1
+		setlocal makeprg=echo\ xelatex\ %\;xelatex\ --synctex=1\ \ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
+else
 if g:beamer==1
 		setlocal makeprg=echo\ pdflatex\ %\;pdflatex\ --synctex=1\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
 else
-		setlocal makeprg=echo\ xelatex\ %\;xelatex\ --synctex=1\ \ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
+		setlocal makeprg=echo\ latex\ %\;latex\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
+endif
 endif
 
 set errorformat=%f:%l:%m
 
 nnoremap <Tab><F3> :execute "!cd ".expand("%:p:h").";".g:psview." ".expand("%:p:r").".ps &"
-nnoremap <buffer> <F3> :call SyncTexForward()<CR>
+if (g:ispdf==1)
+	"nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";"."okular ".expand("%:p:r").".pdf &"
+	nnoremap <buffer> <F3> :call SyncTexForward()<CR>
+else
+	nnoremap <buffer> <F3> :execute "!cd ".expand("%:p:h").";".g:dviview." -editor \"vim --servername VIM --remote\" -watchfile 0.5 -s 5 -sourceposition ".line(".")."\\ ".expand("%:p:t")." ".expand("%:p:r")." 2>/dev/null >/dev/null &"
+endif	
 map <F9> <F2>:make<CR>
 imap <F9> <F9>
 inoremap <C-E> :call PutEnd()i
