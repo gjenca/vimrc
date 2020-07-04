@@ -1,22 +1,9 @@
-set term=$TERM
 set mouse=a
 set modeline
 set nohlsearch
-let loaded_matchparen=1
 set showmatch
 set nobomb
 set textwidth=0
-if &term=~"xterm"
-if has("terminfo")
-  set t_Co=16
-  set t_Sf=<Esc>[3%p1%dm
-  set t_Sb=<Esc>[4%p1%dm
-else
-  set t_Co=16
-  set t_Sf=<Esc>[3%dm
-  set t_Sb=<Esc>[4%dm
-endif
-endif
 syn on
 if has("gui_running")
   set gfn=Source\ Code\ Pro\ Medium\ 16
@@ -43,17 +30,12 @@ set fileencodings=utf-8
 set incsearch
 
 
-highlight Pmenusel ctermbg=7 ctermfg=12 guibg=White guifg=LightBlue 
-highlight Pmenu ctermbg=12 guibg=LightBlue
-
 filetype plugin on
-autocmd FileType perl call FT_pl()
 "let g:pymode_lint=0
 let g:pymode_syntax_indent_errors=0
 autocmd FileType python call FT_py()
 autocmd FileType tex call FT_tex()
 autocmd FileType c call FT_C()
-autocmd FileType mail call FT_mail()
 autocmd FileType html call FT_html()
 autocmd FileType htmldjango call FT_html()
 autocmd FileType haskell call FT_hs()
@@ -144,11 +126,6 @@ imap <F9> :wa:echo system("cd ".expand("%:p:h").";"."runhaskell ".expand("%:p"
 endfunction
 
 
-function FT_pl()
-nmap <F9> :wa:echo system("cd ".expand("%:p:h").";"."perl ".expand("%:p"))
-imap <F9> :wa:echo system("cd ".expand("%:p:h").";"."perl ".expand("%:p"))i
-endfunction
-
 function FT_html()
 set ai 
 set ts=2 
@@ -176,29 +153,6 @@ let g:pymode_lint=0
 highlight Error NONE
 endfunction
 
-function Mail_foldtext()
-
-	 let i=v:foldstart
-	 while i <= v:foldend
-	 	let str=getline(i)
-		if str =~'Subject:'
-			let str = substitute(str,'Subject: *\[[^\]].*\] *','Subject: ','')
-			return v:folddashes . str
-		endif
-		let i=i+1
-	 endwhile
-	 return v:folddashes . 'Subject: None'
-endfunction
-			
-
-function Mail_foldexpr(lnum)
-	
-	if getline(a:lnum+1)=~'^From '
-		return '<1'
-	else
-		return '1'
-	endif
-endfunction
 
 function TeX_foldexpr(lnum)
 	
@@ -219,22 +173,12 @@ function InsertTabWrapper()
 endfunction
 
 
-function FT_mail()
-
-set foldexpr=Mail_foldexpr(v:lnum)
-set foldmethod=expr
-set foldlevel=1
-set foldtext=Mail_foldtext()
-endfunction
-
 function! SyncTexForward()
      let execstr = "!okular --unique %:p:r.pdf\\#src:".line(".")."%:p 2>/dev/null&"
      exec execstr
 endfunction
 
 function FT_tex()
-
-call Bolds()
 
 set textwidth=90
 set foldexpr=TeX_foldexpr(v:lnum)
@@ -278,74 +222,5 @@ inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 syn sync clear
 syn sync fromstart
 
-endfunction
-
-function Bolds()
-	
-	dig AA 119808
-	dig BB 119809
-	dig CC 119810
-	dig DD 119811
-	dig EE 119812
-	dig FF 119813
-	dig GG 119814
-	dig HH 119815
-	dig II 119816
-	dig JJ 119817
-	dig KK 119818
-	dig LL 119819
-	dig MM 119820
-	dig NN 119821
-	dig OO 119822
-	dig PP 119823
-	dig QQ 119824
-	dig RR 119825
-	dig SS 119826
-	dig TT 119827
-	dig UU 119828
-	dig VV 119829
-	dig WW 119830
-	dig XX 119831
-	dig YY 119832
-	dig ZZ 119833
-	dig aa 119834
-	dig bb 119835
-	dig cc 119836
-	dig dd 119837
-	dig ee 119838
-	dig ff 119839
-	dig gg 119840
-	dig hh 119841
-	dig ii 119842
-	dig jj 119843
-	dig kk 119844
-	dig ll 119845
-	dig mm 119846
-	dig nn 119847
-	dig oo 119848
-	dig pp 119849
-	dig qq 119850
-	dig rr 119851
-	dig ss 119852
-	dig tt 119853
-	dig uu 119854
-	dig vv 119855
-	dig ww 119856
-	dig xx 119857
-	dig yy 119858
-	dig zz 119859
-	dig 00 120782
-	dig 11 120783
-	dig 22 120784
-	dig 33 120785
-	dig 44 120786
-	dig 55 120787
-	dig 66 120788
-	dig 77 120789
-	dig 88 120790
-	dig 99 120791
-	dig << 12296
-	dig >> 12297
-	dig \\ 8726
 endfunction
 				
