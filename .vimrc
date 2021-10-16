@@ -14,7 +14,6 @@ if has("gui_running")
   set guioptions-=r
 else
   set bg=light
-  colorscheme solarized
 endif
 set backup
 set writebackup
@@ -173,10 +172,6 @@ function InsertTabWrapper()
 endfunction
 
 
-function! SyncTexForward()
-     let execstr = "!okular --unique %:p:r.pdf\\#src:".line(".")."%:p 2>/dev/null&"
-     exec execstr
-endfunction
 
 function FT_tex()
 
@@ -212,7 +207,7 @@ endif
 set errorformat=%f:%l:%m
 
 nnoremap <Tab><F3> :execute "!cd ".expand("%:p:h").";".g:psview." ".expand("%:p:r").".ps &"
-nnoremap <buffer> <F3> :call SyncTexForward()<CR>
+nnoremap <F3> :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-r>=line('.')<CR> %<.pdf<CR><C-L>
 map <F9> <F2>:make<CR>
 imap <F9> <F9>
 inoremap <C-E> :call PutEnd()i
