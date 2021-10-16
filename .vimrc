@@ -1,9 +1,11 @@
+execute pathogen#infect()
 set mouse=a
 set modeline
 set nohlsearch
 set showmatch
 set nobomb
 set textwidth=0
+set ai
 syn on
 if has("gui_running")
   set gfn=Source\ Code\ Pro\ Medium\ 16
@@ -17,7 +19,6 @@ else
   colorscheme solarized
 endif
 set backup
-set writebackup
 set hidden
 set wildmenu
 set bs=2
@@ -174,7 +175,7 @@ endfunction
 
 
 function! SyncTexForward()
-     let execstr = "!okular --unique %:p:r.pdf\\#src:".line(".")."%:p 2>/dev/null&"
+     let execstr = "!okular --unique %:p:r.pdf\\#src:".line(".")."%:p 2>/dev/null &"
      exec execstr
 endfunction
 
@@ -197,6 +198,10 @@ let i=1
 let g:beamer=0
 while i<20
 	if getline(i)=~"documentclass.*beamer"
+		let g:beamer=1
+		break
+	endif
+	if getline(i)=~"!PDF"
 		let g:beamer=1
 		break
 	endif
