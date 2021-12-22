@@ -26,6 +26,7 @@ filetype on
 set dictionary+=mybib.bib
 set dictionary+=keys.txt
 set dictionary+=mykeys.txt
+set dictionary+=pages.txt
 set fileencodings=utf-8
 
 set incsearch
