@@ -4,6 +4,7 @@ set nohlsearch
 set showmatch
 set nobomb
 set textwidth=0
+set ai
 syn on
 if has("gui_running")
   set gfn=Source\ Code\ Pro\ Medium\ 16
@@ -16,7 +17,6 @@ else
   set bg=light
 endif
 set backup
-set writebackup
 set hidden
 set wildmenu
 set bs=2
@@ -193,6 +193,10 @@ let i=1
 let g:beamer=0
 while i<20
 	if getline(i)=~"documentclass.*beamer"
+		let g:beamer=1
+		break
+	endif
+	if getline(i)=~"!PDF"
 		let g:beamer=1
 		break
 	endif
