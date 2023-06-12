@@ -6,7 +6,7 @@ set nohlsearch
 set showmatch
 set nobomb
 set textwidth=0
-set ai
+set noai
 set backup
 set hidden
 set wildmenu
@@ -16,7 +16,8 @@ set dictionary+=keys.txt
 set dictionary+=mykeys.txt
 set dictionary+=~/work/awiki/pages.txt
 set dictionary+=~/citacie/gejza/keys.txt
-
+colorscheme morning
+set expandtab ts=4 sw=4
 map <F6> :bn
 map <F5> :bp
 nmap <silent> <F10> :wqa
