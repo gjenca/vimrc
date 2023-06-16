@@ -1,4 +1,3 @@
-execute pathogen#infect()
 set mouse=a
 set modeline
 set nohlsearch
@@ -10,13 +9,13 @@ syn on
 if has("gui_running")
   set gfn=Source\ Code\ Pro\ Medium\ 16
   set guicursor+=a:blinkon0
-  colorscheme solarized
+  "colorscheme solarized
   set guioptions-=m
   set guioptions-=T
   set guioptions-=r
 else
   set bg=light
-  colorscheme solarized
+  "colorscheme solarized
 endif
 set backup
 set hidden
@@ -26,7 +25,8 @@ filetype on
 set dictionary+=mybib.bib
 set dictionary+=keys.txt
 set dictionary+=mykeys.txt
-set dictionary+=pages.txt
+set dictionary+=~/work/awiki/pages.txt
+set dictionary+=~/citacie/gejza/keys.txt
 set fileencodings=utf-8
 
 set incsearch
@@ -197,6 +197,8 @@ map ]] /\\section
 
 let i=1
 let g:beamer=0
+let g:make=0
+
 while i<20
 	if getline(i)=~"documentclass.*beamer"
 		let g:beamer=1
@@ -206,10 +208,16 @@ while i<20
 		let g:beamer=1
 		break
 	endif
+	if getline(i)=~"!MAKE"
+		let g:make=1
+	endif
 	let i=i+1
-endwhile	
+endwhile
 
-if g:beamer==1
+
+if g:make==1:
+	setlocal makeprg=make
+elseif g:beamer==1
 		setlocal makeprg=echo\ pdflatex\ %\;pdflatex\ --synctex=1\ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
 else
 		setlocal makeprg=echo\ xelatex\ %\;xelatex\ --synctex=1\ \ -src-specials\ --file-line-error\ --interaction\ nonstopmode\ %\ \\\|\ grep\ '^[^:]*:[0123456789]*:'
