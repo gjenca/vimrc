@@ -17,3 +17,4 @@
 *.png
 *.synctex.gz
 .vim/bundle/
+.vim/.netrwhist
