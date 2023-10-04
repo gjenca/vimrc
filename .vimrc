@@ -1,12 +1,12 @@
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
+autocmd VimEnter set indentexpr=
 set modeline
 set nohlsearch
 set showmatch
 set nobomb
 set textwidth=0
-set ai
 set backup
 set hidden
 set wildmenu
@@ -16,7 +16,8 @@ set dictionary+=keys.txt
 set dictionary+=mykeys.txt
 set dictionary+=~/work/awiki/pages.txt
 set dictionary+=~/citacie/gejza/keys.txt
-
+colorscheme darkblue
+map <F7> "+yww
 map <F6> :bn
 map <F5> :bp
 nmap <silent> <F10> :wqa
