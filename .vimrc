@@ -1,7 +1,11 @@
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
+call plug#begin()
+Plug 'lervag/vimtex'
+call plug#end()
 autocmd VimEnter set indentexpr=
+let g:loaded_matchparen=1
 set modeline
 set nohlsearch
 set showmatch
