@@ -1,9 +1,6 @@
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
-call plug#begin()
-Plug 'lervag/vimtex'
-call plug#end()
 autocmd VimEnter set indentexpr=
 let g:loaded_matchparen = 1
 set modeline
@@ -21,8 +18,10 @@ set dictionary+=keys.txt
 set dictionary+=mykeys.txt
 set dictionary+=~/work/awiki/pages.txt
 set dictionary+=~/citacie/gejza/keys.txt
-colorscheme darkblue
 colorscheme morning
+autocmd BufRead,BufNewFile *.sage,*.pyx,*.spyx set filetype=python
+autocmd Filetype python set tabstop=4|set shiftwidth=4|set expandtab
+autocmd FileType python set makeprg=sage\ -b\ &&\ sage\ -t\ %
 set expandtab ts=4 sw=4
 map <F6> :bn
 map <F5> :bp
@@ -32,3 +31,4 @@ imap <F6> :bn
 imap <F5> :bp
 imap <F10> <F10>
 imap <F2> <F2>i
+
