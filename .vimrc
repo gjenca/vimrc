@@ -13,6 +13,7 @@ set noai
 set backup
 set hidden
 set wildmenu
+set nofixendofline
 set bs=2
 set dictionary+=mybib.bib
 set dictionary+=keys.txt
