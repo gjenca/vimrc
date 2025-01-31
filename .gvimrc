@@ -1,2 +1,3 @@
 :set lines=40 columns=150
-set guifont=Source\ Code\ Pro\ \Medium\ 16 
+set guifont=Liberation\ Mono\ 16 
+set linespace=2
