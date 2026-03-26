@@ -8,7 +8,7 @@ set modeline
 set nohlsearch
 set showmatch
 set nobomb
-set textwidth=0
+set textwidth=80
 set noai
 set backup
 set hidden

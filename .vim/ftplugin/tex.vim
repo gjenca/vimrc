@@ -10,7 +10,7 @@ setlocal indentexpr=
 map <F9> :w!<CR>:VimtexCompile<CR>
 map <F3> :VimtexView<CR>
 set expandtab           " enter spaces when tab is pressed
-set textwidth=120       " break lines when line length increases
+set textwidth=85        " break lines when line length increases
 set tabstop=4           " use 4 spaces to represent tab
 set softtabstop=4
 set shiftwidth=4
