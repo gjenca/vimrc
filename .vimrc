@@ -20,7 +20,7 @@ set dictionary+=keys.txt
 set dictionary+=mykeys.txt
 set dictionary+=~/work/awiki/pages.txt
 set dictionary+=~/citacie/gejza/keys.txt
-colorscheme morning
+colorscheme evening
 autocmd BufRead,BufNewFile *.sage,*.pyx,*.spyx set filetype=python
 autocmd Filetype python set tabstop=4|set shiftwidth=4|set expandtab|set softtabstop=4
 autocmd FileType python set makeprg=sage\ -b\ &&\ sage\ -t\ %

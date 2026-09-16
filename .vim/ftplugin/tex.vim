@@ -14,3 +14,19 @@ set textwidth=85        " break lines when line length increases
 set tabstop=4           " use 4 spaces to represent tab
 set softtabstop=4
 set shiftwidth=4
+function TeX_foldexpr(lnum)
+	let line = getline(a:lnum)
+	if a:lnum == 1
+		return '>1'
+	elseif line =~ '\\subsection'
+		return '>2'
+	elseif line =~ '\\section'
+		return '>1'
+	else
+		return '='
+	endif
+endfunction
+set foldexpr=TeX_foldexpr(v:lnum)
+set foldmethod=expr
+set foldlevel=1
+
