@@ -1,7 +1,7 @@
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
-autocmd VimEnter set indentexpr=
+let g:vimtex_indent_enabled = 0
 autocmd BufEnter * :syntax sync fromstart
 let g:loaded_matchparen = 1
 set modeline
